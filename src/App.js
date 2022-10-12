@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import Competitions from "./components/Competitions/Competitions";
+
+const DUMMY_COMPETITIONS = [
+  {
+    id: "c1",
+    name: "Competitions1",
+    laps: 5,
+    competitors: 17,
+  },
+  { id: "c2", name: "Competitions2", laps: 10, competitors: 14 },
+  {
+    id: "c3",
+    name: "Competitions3",
+    laps: 6,
+    competitors: 8,
+  },
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Competitions items={DUMMY_COMPETITIONS}/>
     </div>
   );
 }
