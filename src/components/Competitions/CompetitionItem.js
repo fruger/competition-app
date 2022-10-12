@@ -1,3 +1,4 @@
+import Button from "../UI/Button";
 import Card from "../UI/Card";
 import "./CompetitionItem.css";
 
@@ -9,6 +10,7 @@ const CompetitionsItem = (props) => {
         <h4>Laps: {props.laps}</h4>
         <h4>Competitors: {props.competitors}</h4>
       </div>
+      <Button type="submit">CHECK RESULTS</Button>
     </Card>
   );
 };

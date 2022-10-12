@@ -1,4 +1,5 @@
 import Competitions from "./components/Competitions/Competitions";
+import NewCompetition from "./components/NewCompetition/NewCompetition";
 
 const DUMMY_COMPETITIONS = [
   {
@@ -7,7 +8,12 @@ const DUMMY_COMPETITIONS = [
     laps: 5,
     competitors: 17,
   },
-  { id: "c2", name: "Competitions2", laps: 10, competitors: 14 },
+  {
+    id: "c2",
+    name: "Competitions2",
+    laps: 10,
+    competitors: 14,
+  },
   {
     id: "c3",
     name: "Competitions3",
@@ -19,7 +25,8 @@ const DUMMY_COMPETITIONS = [
 function App() {
   return (
     <div>
-      <Competitions items={DUMMY_COMPETITIONS}/>
+      <NewCompetition />
+      <Competitions items={DUMMY_COMPETITIONS} />
     </div>
   );
 }
