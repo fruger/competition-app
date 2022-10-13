@@ -1,8 +1,21 @@
 .competitions {
-    padding: 1rem;
-    background-color: #1f1f1f;
-    margin: 2rem auto;
-    width: 50rem;
-    max-width: 95%;
+  padding: 1rem;
+  background-color: #1f1f1f;
+  margin: 2rem auto;
+  width: 50rem;
+  max-width: 95%;
+}
+
+.competitions__background {
+  padding: 1rem;
+  background-color: #9a9a9a;
+  margin: 2rem auto;
+  width: 55rem;
+  max-width: 95%;
+}
+
+.competitions__create {
+    padding-right: 1.5rem;
+    text-align: right;
   }
-  
+

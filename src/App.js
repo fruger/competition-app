@@ -1,5 +1,4 @@
 import Competitions from "./components/Competitions/Competitions";
-import NewCompetition from "./components/NewCompetition/NewCompetition";
 
 const DUMMY_COMPETITIONS = [
   {
@@ -22,13 +21,12 @@ const DUMMY_COMPETITIONS = [
   },
 ];
 
-function App() {
+const App = () => {
   return (
     <div>
-      <NewCompetition />
       <Competitions items={DUMMY_COMPETITIONS} />
     </div>
   );
-}
+};
 
 export default App;
