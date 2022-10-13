@@ -1,32 +1,55 @@
+import { useState } from "react";
+import CompetitionForm from "../NewCompetition/CompetitionForm";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import CompetitionItem from "./CompetitionItem";
 import "./Competitions.css";
 
 const Competitions = (props) => {
+  const [isCreate, setIsCreating] = useState(false);
+
+  const startCreatingHandler = () => {
+    setIsCreating(true);
+  };
+
+  const saveCompetitionDataHandler = (enteredCompetitionData) => {
+    const competitionData = {
+      ...enteredCompetitionData,
+      id: Math.random().toString(),
+    };
+    props.onAddCompetition(competitionData);
+  };
+
+  const stopCreatingHandler = () => {
+    setIsCreating(false);
+  };
+
   return (
-    <Card className="competitions__background">
-      <div className="competitions__create">
-        <Button type="button">CREATE COMPETITION</Button>
-      </div>
-      <Card className="competitions">
-        <CompetitionItem
-          name={props.items[0].name}
-          laps={props.items[0].laps}
-          competitors={props.items[0].competitors}
+    <div>
+      {isCreate && (
+        <CompetitionForm
+          onSaveCompetitionData={saveCompetitionDataHandler}
+          onCancel={stopCreatingHandler}
         />
-        <CompetitionItem
-          name={props.items[1].name}
-          laps={props.items[1].laps}
-          competitors={props.items[1].competitors}
-        />
-        <CompetitionItem
-          name={props.items[2].name}
-          laps={props.items[2].laps}
-          competitors={props.items[2].competitors}
-        />
+      )}
+      <Card className="competitions__background">
+        <div className="competitions__create">
+          <Button type="button" onClick={startCreatingHandler}>
+            CREATE COMPETITION
+          </Button>
+        </div>
+        <Card className="competitions">
+          {props.items.map((competition) => (
+            <CompetitionItem
+              key = {competition.id}
+              name={competition.name}
+              laps={competition.laps}
+              competitors={competition.competitors}
+            />
+          ))}
+        </Card>
       </Card>
-    </Card>
+    </div>
   );
 };
 

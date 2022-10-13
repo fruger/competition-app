@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Button from "../UI/Button";
 import "./CompetitionForm.css";
+import Card from "../UI/Card";
 
-const CompetitionForm = () => {
+const CompetitionForm = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredLaps, setEnteredLaps] = useState("");
 
@@ -22,13 +23,15 @@ const CompetitionForm = () => {
       laps: enteredLaps,
     };
 
-    console.log(competitionData);
+    props.onSaveCompetitionData(competitionData);
     setEnteredName("");
     setEnteredLaps("");
   };
 
   return (
     <form onSubmit={submitHandler}>
+      <div className="backdrop" onClick={props.onCancel} />
+      <Card className="new-competition modal">
       <div className="new-competition__controls">
         <div className="new-competition__control">
           <label>NAME</label>
@@ -47,6 +50,7 @@ const CompetitionForm = () => {
         </div>
       </div>
       <Button type="submit">CREATE COMPETITION</Button>
+      </Card>
     </form>
   );
 };

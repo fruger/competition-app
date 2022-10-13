@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Competitions from "./components/Competitions/Competitions";
 
 const DUMMY_COMPETITIONS = [
@@ -22,9 +23,20 @@ const DUMMY_COMPETITIONS = [
 ];
 
 const App = () => {
+  const [competitions, setCompetitions] = useState(DUMMY_COMPETITIONS);
+
+  const addCompetitionHandler = (competition) => {
+    setCompetitions((prevCompetitions) => {
+      return [competition, ...prevCompetitions];
+    });
+  };
+
   return (
     <div>
-      <Competitions items={DUMMY_COMPETITIONS} />
+      <Competitions
+        items={competitions}
+        onAddCompetition={addCompetitionHandler}
+      />
     </div>
   );
 };
