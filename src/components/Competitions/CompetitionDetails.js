@@ -1,10 +1,11 @@
 import Button from "../UI/Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Card from "../UI/Card";
 import styles from "./CompetitionDetails.module.css";
 
 const CompetitionDetails = (props) => {
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   console.log("CompetitionDetails.js", props.items);
 
@@ -15,9 +16,7 @@ const CompetitionDetails = (props) => {
       </div>
 
       <Card className={styles.competitions}>
-        {props.items?.map((competition) => (
-          <h1 key={competition.id}>{competition.name}</h1>
-        ))}
+        <h1>{state}</h1>
         <Button type="button">REGISTER</Button>
         <Button type="button">ADD PENALTY POINTS</Button>
 
