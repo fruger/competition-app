@@ -1,6 +1,6 @@
 .new-competition {
   background-color: #a8cbff;
-  padding: 1rem;
+  padding: 1rem 0;
   margin: auto auto;
   width: 50rem;
   max-width: 30rem;
@@ -21,13 +21,15 @@
   font-weight: bold;
   margin-bottom: 0.5rem;
   display: block;
+  text-align: left;
+  margin-left: 5rem;
 }
 
 .new-competition__control input {
   font: inherit;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 6px;
-  border: 1px solid #1f1f1f;
+  border: 0.5px solid #1f1f1f;
   width: 20rem;
   max-width: 100%;
 }
@@ -42,7 +44,12 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
-.modal {
+.new-competition button {
+  margin: 2% 2%;
+  padding: 1rem;
+}
+
+.new-competition__modal {
   position: fixed;
   left: 50%;
   top: 30vh;
@@ -51,3 +58,11 @@
   transform: translate(-50%, -50%);
 }
 
+.new-competition__control.invalid input {
+  border-color: red;
+  background: #ffd7d7;
+}
+
+.new-competition__control.invalid label {
+  color: red;
+} 

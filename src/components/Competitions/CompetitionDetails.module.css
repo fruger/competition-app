@@ -1,0 +1,42 @@
+.competitions__background {
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 2rem;
+}
+
+.competitions__groups {
+  text-align: left;
+}
+
+.competitions__groups button {
+  text-align: left;
+}
+
+.competitions__groups h4 {
+  text-align: left;
+  color: #1f1f1f;
+  font-size: 1rem;
+}
+
+.competitions {
+  padding: 1rem;
+  background-color: #9a9a9a;
+  margin: 2rem auto;
+  width: 55rem;
+  max-width: 95%;
+  text-align: right;
+}
+
+.competitions h1 {
+  display: flex;
+  justify-content: left;
+}
+
+.competitions button {
+  margin-right: 10px;
+}
+
+.back-to-list button{
+background-color: #a8cbff;
+color: #1f1f1f;
+}
