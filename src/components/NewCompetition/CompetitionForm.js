@@ -1,10 +1,10 @@
+import { Button, Form, Modal } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import Button from "../UI/Button";
-import styles from "./CompetitionForm.module.css";
-import Card from "../UI/Card";
 import axios from "axios";
+import './AddForm.css'
 
-const CompetitionForm = (props) => {
+const AddForm = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredLaps, setEnteredLaps] = useState("");
   const [isValid, setIsValid] = useState(true);
@@ -47,45 +47,51 @@ const CompetitionForm = (props) => {
   };
 
   return (
-    <form>
-      <div className={styles.backdrop} onClick={props.onCancel} />
-      <Card
-        className={`${styles["new-competition"]} ${styles["new-competition__modal"]}`}
-      >
-        <div className={`${styles["new-competition__controls"]}`}>
-          <div
-            className={`${styles["new-competition__control"]} ${
-              !isValid && styles.invalid
-            }`}
-          >
-            <label>NAME</label>
-            <input
+    <Modal className="addform" show={props.show}>
+      <Modal.Header className="addform__control">
+        <Modal.Title>CREATE COMPETITION</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="addform__control">
+        <Form validated={!isValid}>
+          <Form.Group validated={!isValid}>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
               type="text"
+              required
               value={enteredName}
               onChange={nameChangeHandler}
             />
-          </div>
-          <div
-            className={`${styles["new-competition__control"]} ${
-              !isValid && styles.invalid
-            }`}
-          >
-            <label>NUMBER OF LAPS (5-10)</label>
-            <input
+            <Form.Control.Feedback type="invalid">
+              Please provide a valid name.
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Number of laps (5-10)</Form.Label>
+            <Form.Control
               type="number"
+              required
               min="5"
               step="1"
               max="10"
               value={enteredLaps}
               onChange={lapsChangeHandler}
             />
-          </div>
-        </div>
-        <Button onClick={submitHandler}>CREATE COMPETITION</Button>
-        <Button onClick={props.onCancel}>CLOSE</Button>
-      </Card>
-    </form>
+            <Form.Control.Feedback type="invalid">
+              Please enter a number of laps between 5 and 10.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer className="addform__control">
+        <Button variant="primary" onClick={submitHandler}>
+          SUBMIT
+        </Button>
+        <Button type="reset" defaultValue="Reset" variant="secondary" onClick={props.onCancel}>
+          CLOSE
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
-export default CompetitionForm;
+export default AddForm;

@@ -36,7 +36,12 @@
   margin-right: 10px;
 }
 
-.back-to-list button{
-background-color: #a8cbff;
-color: #1f1f1f;
+.back-to-list button {
+  background-color: #1f1f1f;
+  color: #a8cbff;
+}
+
+.back-to-list button:hover {
+  background-color: #a8cbff;
+  color: #1f1f1f;
 }

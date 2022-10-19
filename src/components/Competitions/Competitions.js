@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import AddForm from "../NewCompetition/CompetitionForm";
 import CompetitionForm from "../NewCompetition/CompetitionForm";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
+
 import CompetitionItem from "./CompetitionItem";
 import styles from "./Competitions.module.css";
 
@@ -39,14 +41,11 @@ const Competitions = (props) => {
   };
 
   return (
-    <div>
-      {isCreating && (
-        <CompetitionForm
-          onCancel={stopCreatingHandler}
-          onGetCompetition={getCompetition}
-        />
-      )}
-
+    <div
+      style={{
+        backgroundColor: "#3f3f3f",
+      }}
+    >
       <Card className={styles.competitions__background}>
         <div className={styles.competitions__create}>
           <Button type="button" onClick={startCreatingHandler}>
@@ -66,6 +65,12 @@ const Competitions = (props) => {
           ))}
         </Card>
       </Card>
+
+      <AddForm
+        onCancel={stopCreatingHandler}
+        onGetCompetition={getCompetition}
+        show={isCreating}
+      />
     </div>
   );
 };
