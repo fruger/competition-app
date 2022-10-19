@@ -3,17 +3,21 @@ import { useNavigate } from "react-router-dom";
 import Card from "../UI/Card";
 import styles from "./CompetitionDetails.module.css";
 
-const CompetitionDetails = () => {
+const CompetitionDetails = (props) => {
   const navigate = useNavigate();
+
+  console.log("CompetitionDetails.js", props.items);
 
   return (
     <div className={styles.competitions__background}>
       <div className={styles["back-to-list"]}>
-      <Button onClick={() => navigate("/")}>GO TO COMPETITIONS LIST</Button>
+        <Button onClick={() => navigate("/")}>GO TO COMPETITIONS LIST</Button>
       </div>
-      
+
       <Card className={styles.competitions}>
-      <h1>Title</h1>
+        {props.items?.map((competition) => (
+          <h1 key={competition.id}>{competition.name}</h1>
+        ))}
         <Button type="button">REGISTER</Button>
         <Button type="button">ADD PENALTY POINTS</Button>
 

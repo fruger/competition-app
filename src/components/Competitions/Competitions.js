@@ -10,10 +10,6 @@ const Competitions = (props) => {
   const [isCreating, setIsCreating] = useState(false);
   const [competition, setCompetition] = useState();
 
-  useEffect(() => {
-    getCompetition();
-  }, []);
-
   const getCompetition = () => {
     axios
       .get("https://localhost:7173/api/Competition")
@@ -24,6 +20,14 @@ const Competitions = (props) => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    getCompetition();
+  }, []);
+
+  const getData = () => {
+    props.onGetCompetitionsData(competition);
   };
 
   const startCreatingHandler = () => {
@@ -57,6 +61,7 @@ const Competitions = (props) => {
               name={competition.name}
               laps={competition.laps}
               competitors={competition.competitorIds.length}
+              onGetData={getData}
             />
           ))}
         </Card>

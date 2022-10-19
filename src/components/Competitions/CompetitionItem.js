@@ -6,6 +6,11 @@ import "./CompetitionItem.css";
 const CompetitionsItem = (props) => {
   const navigate = useNavigate();
 
+  const navigateTo =()=>{
+    navigate("details")
+    props.onGetData();
+  }
+
   return (
     <Card className="competition-item">
       <div className="competition-item__description">
@@ -13,7 +18,7 @@ const CompetitionsItem = (props) => {
         <h4>Laps: {props.laps}</h4>
         <h4>Competitors: {props.competitors}</h4>
       </div>
-      <Button onClick={() => navigate("details")}>
+      <Button onClick={navigateTo}>
         CHECK DETAILS
       </Button>
     </Card>
