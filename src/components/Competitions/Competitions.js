@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import AddForm from "../NewCompetition/CompetitionForm";
 import CompetitionForm from "../NewCompetition/CompetitionForm";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
@@ -16,7 +15,6 @@ const Competitions = (props) => {
     axios
       .get("https://localhost:7173/api/Competition")
       .then((res) => {
-        //console.log(res.data);
         setCompetition(res.data);
       })
       .catch((error) => {
@@ -57,6 +55,7 @@ const Competitions = (props) => {
           {competition?.map((competition) => (
             <CompetitionItem
               key={competition.id}
+              id = {competition.id}
               name={competition.name}
               laps={competition.laps}
               competitors={competition.competitorIds.length}
@@ -66,7 +65,7 @@ const Competitions = (props) => {
         </Card>
       </Card>
 
-      <AddForm
+      <CompetitionForm
         onCancel={stopCreatingHandler}
         onGetCompetition={getCompetition}
         show={isCreating}

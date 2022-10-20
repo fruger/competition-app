@@ -1,24 +1,23 @@
-import { Button, Form, Modal } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import './AddForm.css'
+import "./CompetitionForm.css";
 
 const AddForm = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredLaps, setEnteredLaps] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const [validated, setValidated] = useState(false);
 
   const nameChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setValidated(false);
     }
     setEnteredName(event.target.value);
   };
 
   const lapsChangeHandler = (event) => {
     if (event.target.value.trim().length > 0) {
-      setIsValid(true);
+      setValidated(false);
     }
     setEnteredLaps(event.target.value);
   };
@@ -30,7 +29,7 @@ const AddForm = (props) => {
       10 < enteredLaps ||
       5 > enteredLaps
     ) {
-      setIsValid(false);
+      setValidated(true);
       return;
     }
 
@@ -47,13 +46,13 @@ const AddForm = (props) => {
   };
 
   return (
-    <Modal className="addform" show={props.show}>
-      <Modal.Header className="addform__control">
+    <Modal className="modalform" show={props.show}>
+      <Modal.Header className="modalform__control">
         <Modal.Title>CREATE COMPETITION</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="addform__control">
-        <Form validated={!isValid}>
-          <Form.Group validated={!isValid}>
+      <Modal.Body className="modalform__control">
+        <Form validated={validated}>
+          <Form.Group>
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
@@ -82,11 +81,16 @@ const AddForm = (props) => {
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer className="addform__control">
+      <Modal.Footer className="modalform__control">
         <Button variant="primary" onClick={submitHandler}>
           SUBMIT
         </Button>
-        <Button type="reset" defaultValue="Reset" variant="secondary" onClick={props.onCancel}>
+        <Button
+          type="reset"
+          defaultValue="Reset"
+          variant="secondary"
+          onClick={props.onCancel}
+        >
           CLOSE
         </Button>
       </Modal.Footer>

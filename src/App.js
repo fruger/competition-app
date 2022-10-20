@@ -1,4 +1,4 @@
-import CompetitionDetails from "./components/Competitions/CompetitionDetails";
+import CompetitionDetails from "./components/CompetitionDetails/CompetitionDetails";
 import Competitions from "./components/Competitions/Competitions";
 import { Route, Routes } from "react-router-dom";
 import { useState } from "react";

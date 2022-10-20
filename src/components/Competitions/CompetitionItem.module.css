@@ -14,11 +14,11 @@
   flex-flow: column-reverse;
   justify-content: flex-start;
   flex: 1;
+  width: 75%;
 }
 
 .competition-item h2 {
   color: #1f1f1f;
-  font-size: 1rem;
   flex: 1;
   margin: 0.5rem 1rem;
 }
@@ -41,6 +41,7 @@
 
   .competition-item__description h2 {
     font-size: 1.25rem;
+    word-wrap: break-word;
   }
 
   .competition-item__price {

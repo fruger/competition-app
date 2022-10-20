@@ -14,7 +14,7 @@
 
 .competitions__groups h4 {
   text-align: left;
-  color: #1f1f1f;
+  color: black;
   font-size: 1rem;
 }
 
@@ -28,8 +28,12 @@
 }
 
 .competitions h1 {
-  display: flex;
   justify-content: left;
+  font-size: 35px;
+  color: #1f1f1f;
+  width: 100%;
+  word-wrap: break-word;
+  text-align: left;
 }
 
 .competitions button {

@@ -1,0 +1,9 @@
+.competitorstable {
+  color: black;
+  text-align: left;
+  padding-top: 1rem;
+}
+
+.competitorstable__table {
+  text-align: center;
+}
