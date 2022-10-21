@@ -12,6 +12,7 @@ const CompetitionDetails = () => {
   const { state } = useLocation();
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
+  const [group, setGroup] = useState();
 
   const getCompetitors = () => {
     axios
@@ -36,6 +37,10 @@ const CompetitionDetails = () => {
     setIsSigningUp(false);
   };
 
+  const setCurrentGroup = (groupValue) => {
+    setGroup(groupValue);
+  };
+
   const competitionId = state[1];
   const laps = state[2];
 
@@ -52,25 +57,90 @@ const CompetitionDetails = () => {
 
         <Card className={styles.competitions}>
           <h1>{state[0]}</h1>
-
           <Button type="button" onClick={startSigningUpHandler}>
             SIGN UP
           </Button>
           <Button type="button">ADD PENALTY POINTS</Button>
-
           <div className={styles.competitions__groups}>
             <h4>Groups:</h4>
-            <Button type="button">ALL</Button>
-            <Button type="button">A</Button>
-            <Button type="button">B</Button>
-            <Button type="button">C</Button>
+
+            <div className={styles.buttonGroup}>
+              <input
+                className={styles.buttonGroup__input}
+                type="radio"
+                value="All"
+                name="myButton"
+                id="buttonAll"
+                onClick={(event) => setCurrentGroup(event.target.value)}
+              />
+              <label className={styles.buttonGroup__label} htmlFor="buttonAll">
+                All
+              </label>
+              <input
+                className={styles.buttonGroup__input}
+                type="radio"
+                value="A"
+                name="myButton"
+                id="buttonA"
+                onClick={(event) => setCurrentGroup(event.target.value)}
+              />
+              <label className={styles.buttonGroup__label} htmlFor="buttonA">
+                A
+              </label>
+              <input
+                className={styles.buttonGroup__input}
+                type="radio"
+                value="B"
+                name="myButton"
+                id="buttonB"
+                onClick={(event) => setCurrentGroup(event.target.value)}
+              />
+              <label className={styles.buttonGroup__label} htmlFor="buttonB">
+                B
+              </label>
+              <input
+                className={styles.buttonGroup__input}
+                type="radio"
+                value="C"
+                name="myButton"
+                id="buttonC"
+                onClick={(event) => setCurrentGroup(event.target.value)}
+              />
+              <label className={styles.buttonGroup__label} htmlFor="buttonC">
+                C
+              </label>
+            </div>
           </div>
 
-          <CompetitorsTable
-            laps={laps}
-            competitionId={competitionId}
-            items={competitors}
-          />
+          {group === "All" ? (
+            <>
+              <CompetitorsTable
+                laps={laps}
+                competitionId={competitionId}
+                items={competitors}
+                group="A"
+              />
+              <CompetitorsTable
+                laps={laps}
+                competitionId={competitionId}
+                items={competitors}
+                group="B"
+              />
+              <CompetitorsTable
+                laps={laps}
+                competitionId={competitionId}
+                items={competitors}
+                group="C"
+              />
+            </>
+          ) : (
+            <CompetitorsTable
+              laps={laps}
+              competitionId={competitionId}
+              items={competitors}
+              group={group}
+            />
+          )}
         </Card>
       </div>
 

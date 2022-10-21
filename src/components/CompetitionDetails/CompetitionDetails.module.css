@@ -8,10 +8,6 @@
   text-align: left;
 }
 
-.competitions__groups button {
-  text-align: left;
-}
-
 .competitions__groups h4 {
   text-align: left;
   color: black;
@@ -47,5 +43,34 @@
 
 .back-to-list button:hover {
   background-color: #a8cbff;
+  color: #1f1f1f;
+}
+
+.buttonGroup {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+}
+
+.buttonGroup__input {
+  display: none;
+}
+
+.buttonGroup__label {
+  padding: 8px 25px;
+  font-size: 25px;
+  font-family: sans-serif;
+  color: white;
+  background-color: #1f1f1f;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.buttonGroup__label:not(:last-of-type) {
+  border-right: 1px solid black;
+}
+
+.buttonGroup__input:checked + .buttonGroup__label {
+  background: #a8cbff;
   color: #1f1f1f;
 }

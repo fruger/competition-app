@@ -51,7 +51,7 @@ const Competitions = (props) => {
           </Button>
         </div>
         <Card className={styles.competitions}>
-          {competition?.length === 0 && <h1>Found no competitions.</h1>}
+          {competition?.length === 0 && <h1>No competitions found.</h1>}
           {competition?.map((competition) => (
             <CompetitionItem
               key={competition.id}
