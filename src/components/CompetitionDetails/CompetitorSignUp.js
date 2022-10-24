@@ -6,7 +6,8 @@ import axios from "axios";
 const CompetitorSignUp = (props) => {
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
-  const [enteredGroup, setEnteredGroup] = useState("");
+  const [enteredGroup, setEnteredGroup] = useState("A");
+  const [enteredStartingNumber, setEnteredStartingNumber] = useState(props.competitors + 1);
   const [validated, setValidated] = useState(false);
 
   const firstNameChangeHandler = (event) => {
@@ -39,11 +40,14 @@ const CompetitorSignUp = (props) => {
         lastName: enteredLastName,
         group: enteredGroup,
         competitionId: props.competitionId,
+        startingNumber: enteredStartingNumber,
       })
       .then(() => props.onGetCompetitor())
       .catch((error) => {
         console.log(error);
       });
+
+    setEnteredStartingNumber(enteredStartingNumber + 1);
     props.onCancel();
   };
 

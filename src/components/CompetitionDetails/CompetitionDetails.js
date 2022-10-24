@@ -7,12 +7,12 @@ import Card from "../UI/Card";
 import CompetitorSignUp from "./CompetitorSignUp";
 import CompetitorsTable from "./CompetitorsTable";
 
-const CompetitionDetails = () => {
+const CompetitionDetails = (props) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
-  const [group, setGroup] = useState();
+  const [group, setGroup] = useState("All");
 
   const getCompetitors = () => {
     axios
@@ -43,6 +43,7 @@ const CompetitionDetails = () => {
 
   const competitionId = state[1];
   const laps = state[2];
+  const competitorIds = state[3];
 
   return (
     <div
@@ -60,7 +61,7 @@ const CompetitionDetails = () => {
           <Button type="button" onClick={startSigningUpHandler}>
             SIGN UP
           </Button>
-          <Button type="button">ADD PENALTY POINTS</Button>
+          <Button onClick={() => navigate("/penalty")}>ADD PENALTY POINTS</Button>
           <div className={styles.competitions__groups}>
             <h4>Groups:</h4>
 
@@ -149,6 +150,7 @@ const CompetitionDetails = () => {
         show={isSigningUp}
         onGetCompetitor={getCompetitors}
         competitionId={competitionId}
+        competitors={competitorIds}
       />
     </div>
   );

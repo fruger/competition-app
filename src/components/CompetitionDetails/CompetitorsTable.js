@@ -26,9 +26,10 @@ const CompetitorsTable = (props) => {
       >
         <thead>
           <tr>
-            <th>NO.</th>
+            <th>POS.</th>
             <th>FIRST NAME</th>
             <th>LAST NAME</th>
+            <th>NUMBER</th>
             {Array.from({ length: props.laps }).map((_, index) => (
               <th key={index}>{(lapsNumber += 1)}</th>
             ))}
@@ -41,6 +42,7 @@ const CompetitorsTable = (props) => {
               <td>{(tableNumber += 1)}</td>
               <td>{competitor.firstName}</td>
               <td>{competitor.lastName}</td>
+              <td>{competitor.startingNumber}</td>
               {Array.from({ length: props.laps }).map((_, index) => (
                 <th key={index}></th>
               ))}
@@ -48,7 +50,7 @@ const CompetitorsTable = (props) => {
             </tr>
           ))}
           <tr>
-            <td colSpan={props.laps + 4}>
+            <td colSpan={props.laps + 5}>
               {groupFilter?.length === 0 && (
                 <h2 className="competitorsTable__table">
                   No competitors found

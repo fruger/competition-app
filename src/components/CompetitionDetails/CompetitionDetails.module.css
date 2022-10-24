@@ -39,6 +39,7 @@
 .back-to-list button {
   background-color: #1f1f1f;
   color: #a8cbff;
+  position: fixed;
 }
 
 .back-to-list button:hover {
