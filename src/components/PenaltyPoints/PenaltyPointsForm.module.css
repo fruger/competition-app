@@ -16,13 +16,13 @@
   display: flex;
   position: fixed;
   flex-direction: column;
+  font-size: 13px;
 }
 
 .back-to-list button {
   background-color: #1f1f1f;
   color: #a8cbff;
   margin-bottom: 15px;
-  word-wrap: break-word;
 }
 
 .back-to-list button:hover {
@@ -47,27 +47,45 @@
   border-radius: 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
   margin-top: 10px;
+  width: 100%;
 }
 
 .buttonGroup__input {
-  display: none;
+  width: 25px;
 }
 
 .buttonGroup__label {
   padding: 8px 25px;
-  font-size: 18px;
+  font-size: 15px;
   font-family: sans-serif;
   color: white;
   background-color: #1f1f1f;
   cursor: pointer;
   transition: 0.1s;
+  width: 25%;
 }
 
 .buttonGroup__label:not(:last-of-type) {
   border-right: 1px solid black;
 }
 
-.buttonGroup__input:checked + .buttonGroup__label{
+.buttonGroup__input:checked {
   background: #a8cbff;
   color: #1f1f1f;
+}
+
+.form {
+  color: white;
+  font-size: 20px;
+}
+
+.form button{
+  margin: 10px 0;
+}
+
+.toast {
+  position: absolute;
+  z-index: 6;
+  top: 5%;
+  right: -15%;
 }

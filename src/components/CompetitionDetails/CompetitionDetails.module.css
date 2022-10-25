@@ -36,6 +36,11 @@
   margin-right: 10px;
 }
 
+.back-to-list {
+  position: fixed;
+  font-size: 13px;
+}
+
 .back-to-list button {
   background-color: #1f1f1f;
   color: #a8cbff;
@@ -71,11 +76,16 @@
   border-right: 1px solid black;
 }
 
-.buttonGroup__input:checked + .buttonGroup__label  {
+.buttonGroup__input:checked + .buttonGroup__label {
   background: #a8cbff;
   color: #1f1f1f;
 }
 
 .icon {
   margin-right: 1rem;
+}
+
+.startStop button {
+  color: green;
+  display: inline;
 }

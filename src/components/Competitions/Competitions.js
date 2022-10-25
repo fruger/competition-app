@@ -59,6 +59,7 @@ const Competitions = (props) => {
               name={competition.name}
               laps={competition.laps}
               competitors={competition.competitorIds.length}
+              status={competition.status}
               //onGetData={getData}
             />
           ))}

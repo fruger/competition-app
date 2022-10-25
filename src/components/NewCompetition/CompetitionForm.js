@@ -37,6 +37,7 @@ const AddForm = (props) => {
       .post("https://localhost:7173/api/Competition", {
         name: enteredName,
         laps: enteredLaps,
+        status: 1
       })
       .then(() => props.onGetCompetition())
       .catch((error) => {

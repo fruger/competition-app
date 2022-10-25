@@ -8,6 +8,7 @@ const Button = (props) => {
       className={classes.button}
       value={props.value}
       onClick={props.onClick}
+      show={props.show}
     >
       {props.children}
     </button>

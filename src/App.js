@@ -13,24 +13,11 @@ const App = () => {
   // };
 
   return (
-    <div>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Competitions />
-          }
-        />
-        <Route
-          path="/details/:id"
-          element={<CompetitionDetails />}
-        />
-        <Route
-          path="/details/:id/penalty"
-          element={<PenaltyPointsForm />}
-        />
+        <Route path="/" element={<Competitions />} />
+        <Route path="/details/:id" element={<CompetitionDetails />} />
+        <Route path="/details/:id/penalty" element={<PenaltyPointsForm />} />
       </Routes>
-    </div>
   );
 };
 

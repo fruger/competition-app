@@ -93,9 +93,6 @@ const CompetitorSignUp = (props) => {
               <option>B</option>
               <option>C</option>
             </Form.Select>
-            <Form.Control.Feedback type="invalid">
-              Please enter a number of laps between 5 and 10.
-            </Form.Control.Feedback>
           </Form.Group>
         </Form>
       </Modal.Body>

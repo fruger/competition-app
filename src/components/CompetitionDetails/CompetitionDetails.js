@@ -13,7 +13,9 @@ const CompetitionDetails = (props) => {
   const { state } = useLocation();
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
+  const [competition, setCompetition] = useState();
   const [laps, setLaps] = useState();
+  const [status, setStatus] = useState();
   const [group, setGroup] = useState("All");
 
   const navigateTo = () => {
@@ -32,6 +34,10 @@ const CompetitionDetails = (props) => {
   };
 
   useEffect(() => {
+    getCompetitors();
+  }, []);
+
+  useEffect(() => {
     axios
       .get("https://localhost:7173/api/Lap")
       .then((res) => {
@@ -42,12 +48,28 @@ const CompetitionDetails = (props) => {
       });
   }, []);
 
-  useEffect(() => {
-    getCompetitors();
-  }, []);
+  const getCompetition = () => {
+    axios
+      .get("https://localhost:7173/api/Competition/" + competitionId)
+      .then((res) => {
+        setCompetition(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  // console.log("laps", laps?.id)
-  // console.log("competitors", competitors?.id)
+  const editCompetition = () => {
+    axios
+      .put("https://localhost:7173/api/Competition/" + competitionId, {
+        id: competitionId,
+        status: status,
+      })
+      .then(() => getCompetition())
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const startSigningUpHandler = () => {
     setIsSigningUp(true);
@@ -61,10 +83,17 @@ const CompetitionDetails = (props) => {
     setGroup(event.target.value);
   };
 
+  const startCompetition = () => {
+    setStatus(2);
+    editCompetition();
+  };
+
   const competitionId = state[1];
   const numberOfLaps = state[2];
   const competitorIds = state[3];
+  const competitionStatus = state[4];
 
+  console.log(competitionStatus);
   return (
     <div
       style={{
@@ -83,10 +112,15 @@ const CompetitionDetails = (props) => {
 
         <Card className={styles.competitions}>
           <h1>{state[0]}</h1>
+
           <Button type="button" onClick={startSigningUpHandler}>
             SIGN UP
           </Button>
           <Button onClick={navigateTo}>ADD PENALTY POINTS</Button>
+
+          {competitionStatus < 2 ?<div className={styles.startStop}>
+            <Button onClick={startCompetition} >START</Button>
+          </div> : null }
           <div className={styles.competitions__groups}>
             <h4>Groups:</h4>
 
