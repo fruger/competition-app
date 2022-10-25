@@ -4,5 +4,70 @@
   margin: 2rem auto;
   width: 55rem;
   max-width: 95%;
-  text-align: right;
+}
+
+.competitions__background {
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 2rem;
+}
+
+.back-to-list {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+}
+
+.back-to-list button {
+  background-color: #1f1f1f;
+  color: #a8cbff;
+  margin-bottom: 15px;
+  word-wrap: break-word;
+}
+
+.back-to-list button:hover {
+  background-color: #a8cbff;
+  color: #1f1f1f;
+}
+
+.icon {
+  margin-right: 1rem;
+}
+
+.competitorsTable {
+  text-align: center;
+  color: white;
+  background-color: #2c3034;
+  margin-top: 2rem;
+}
+
+.buttonGroup {
+  display: inline-flex;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  margin-top: 10px;
+}
+
+.buttonGroup__input {
+  display: none;
+}
+
+.buttonGroup__label {
+  padding: 8px 25px;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: white;
+  background-color: #1f1f1f;
+  cursor: pointer;
+  transition: 0.1s;
+}
+
+.buttonGroup__label:not(:last-of-type) {
+  border-right: 1px solid black;
+}
+
+.buttonGroup__input:checked + .buttonGroup__label{
+  background: #a8cbff;
+  color: #1f1f1f;
 }

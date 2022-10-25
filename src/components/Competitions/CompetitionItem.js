@@ -7,8 +7,8 @@ const CompetitionsItem = (props) => {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-    navigate("details", { state: [props.name, props.id, props.laps, props.competitors] });
-    props.onGetData();
+    navigate(`details/${props.id}`, { state: [props.name, props.id, props.laps, props.competitors] });
+    //props.onGetData();
   };
 
   return (

@@ -5,12 +5,12 @@ import { useState } from "react";
 import PenaltyPointsForm from "./components/PenaltyPoints/PenaltyPointsForm";
 
 const App = () => {
-  const [competitions, setCompetitions] = useState();
+  // const [competitions, setCompetitions] = useState();
 
-  const getCompetitionHandler = (competition) => {
-    setCompetitions(() => competition);
-    console.log("app.js", competitions);
-  };
+  // const getCompetitionHandler = (competition) => {
+  //   setCompetitions(() => competition);
+  //   console.log("app.js", competitions);
+  // };
 
   return (
     <div>
@@ -18,15 +18,15 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Competitions onGetCompetitionsData={getCompetitionHandler} />
+            <Competitions />
           }
         />
         <Route
-          path="/details"
-          element={<CompetitionDetails items={competitions} />}
+          path="/details/:id"
+          element={<CompetitionDetails />}
         />
         <Route
-          path="/penalty"
+          path="/details/:id/penalty"
           element={<PenaltyPointsForm />}
         />
       </Routes>

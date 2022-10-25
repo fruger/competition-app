@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ImArrowLeft } from "react-icons/im";
 import axios from "axios";
 import styles from "./CompetitionDetails.module.css";
 import Button from "../UI/Button";
@@ -12,7 +13,12 @@ const CompetitionDetails = (props) => {
   const { state } = useLocation();
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
+  const [laps, setLaps] = useState();
   const [group, setGroup] = useState("All");
+
+  const navigateTo = () => {
+    navigate("penalty", { state: [numberOfLaps, competitors, competitionId] });
+  };
 
   const getCompetitors = () => {
     axios
@@ -26,8 +32,22 @@ const CompetitionDetails = (props) => {
   };
 
   useEffect(() => {
+    axios
+      .get("https://localhost:7173/api/Lap")
+      .then((res) => {
+        setLaps(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
     getCompetitors();
   }, []);
+
+  // console.log("laps", laps?.id)
+  // console.log("competitors", competitors?.id)
 
   const startSigningUpHandler = () => {
     setIsSigningUp(true);
@@ -37,12 +57,12 @@ const CompetitionDetails = (props) => {
     setIsSigningUp(false);
   };
 
-  const setCurrentGroup = (groupValue) => {
-    setGroup(groupValue);
+  const setCurrentGroup = (event) => {
+    setGroup(event.target.value);
   };
 
   const competitionId = state[1];
-  const laps = state[2];
+  const numberOfLaps = state[2];
   const competitorIds = state[3];
 
   return (
@@ -53,7 +73,12 @@ const CompetitionDetails = (props) => {
     >
       <div className={styles.competitions__background}>
         <div className={styles["back-to-list"]}>
-          <Button onClick={() => navigate("/")}>GO TO COMPETITIONS LIST</Button>
+          <Button onClick={() => navigate("/")}>
+            <ImArrowLeft size={"1.5rem"} className={styles.icon} />
+            GO TO
+            <br />
+            COMPETITIONS LIST
+          </Button>
         </div>
 
         <Card className={styles.competitions}>
@@ -61,7 +86,7 @@ const CompetitionDetails = (props) => {
           <Button type="button" onClick={startSigningUpHandler}>
             SIGN UP
           </Button>
-          <Button onClick={() => navigate("/penalty")}>ADD PENALTY POINTS</Button>
+          <Button onClick={navigateTo}>ADD PENALTY POINTS</Button>
           <div className={styles.competitions__groups}>
             <h4>Groups:</h4>
 
@@ -72,7 +97,7 @@ const CompetitionDetails = (props) => {
                 value="All"
                 name="myButton"
                 id="buttonAll"
-                onClick={(event) => setCurrentGroup(event.target.value)}
+                onClick={setCurrentGroup}
               />
               <label className={styles.buttonGroup__label} htmlFor="buttonAll">
                 All
@@ -83,7 +108,7 @@ const CompetitionDetails = (props) => {
                 value="A"
                 name="myButton"
                 id="buttonA"
-                onClick={(event) => setCurrentGroup(event.target.value)}
+                onClick={setCurrentGroup}
               />
               <label className={styles.buttonGroup__label} htmlFor="buttonA">
                 A
@@ -94,7 +119,7 @@ const CompetitionDetails = (props) => {
                 value="B"
                 name="myButton"
                 id="buttonB"
-                onClick={(event) => setCurrentGroup(event.target.value)}
+                onClick={setCurrentGroup}
               />
               <label className={styles.buttonGroup__label} htmlFor="buttonB">
                 B
@@ -105,7 +130,7 @@ const CompetitionDetails = (props) => {
                 value="C"
                 name="myButton"
                 id="buttonC"
-                onClick={(event) => setCurrentGroup(event.target.value)}
+                onClick={setCurrentGroup}
               />
               <label className={styles.buttonGroup__label} htmlFor="buttonC">
                 C
@@ -116,29 +141,33 @@ const CompetitionDetails = (props) => {
           {group === "All" ? (
             <>
               <CompetitorsTable
-                laps={laps}
+                numberOfLaps={numberOfLaps}
                 competitionId={competitionId}
                 items={competitors}
+                laps={laps}
                 group="A"
               />
               <CompetitorsTable
-                laps={laps}
+                numberOfLaps={numberOfLaps}
                 competitionId={competitionId}
                 items={competitors}
+                laps={laps}
                 group="B"
               />
               <CompetitorsTable
-                laps={laps}
+                numberOfLaps={numberOfLaps}
                 competitionId={competitionId}
                 items={competitors}
+                laps={laps}
                 group="C"
               />
             </>
           ) : (
             <CompetitorsTable
-              laps={laps}
+              numberOfLaps={numberOfLaps}
               competitionId={competitionId}
               items={competitors}
+              laps={laps}
               group={group}
             />
           )}

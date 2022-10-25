@@ -26,9 +26,9 @@ const Competitions = (props) => {
     getCompetition();
   }, []);
 
-  const getData = () => {
-    props.onGetCompetitionsData(competition);
-  };
+  // const getData = () => {
+  //   props.onGetCompetitionsData(competition);
+  // };
 
   const startCreatingHandler = () => {
     setIsCreating(true);
@@ -59,7 +59,7 @@ const Competitions = (props) => {
               name={competition.name}
               laps={competition.laps}
               competitors={competition.competitorIds.length}
-              onGetData={getData}
+              //onGetData={getData}
             />
           ))}
         </Card>
