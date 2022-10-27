@@ -85,7 +85,12 @@
   margin-right: 1rem;
 }
 
-.startStop button {
+.start button {
   color: green;
-  display: inline;
+  margin-top: 10px;
+}
+
+.stop button {
+  color: red;
+  margin-top: 10px;
 }

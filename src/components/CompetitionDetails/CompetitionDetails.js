@@ -8,14 +8,14 @@ import Card from "../UI/Card";
 import CompetitorSignUp from "./CompetitorSignUp";
 import CompetitorsTable from "./CompetitorsTable";
 
-const CompetitionDetails = (props) => {
+const CompetitionDetails = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
   const [competition, setCompetition] = useState();
+  const [isDisqualified, setIsDisqualified] = useState(false);
   const [laps, setLaps] = useState();
-  const [status, setStatus] = useState();
   const [group, setGroup] = useState("All");
 
   const navigateTo = () => {
@@ -57,13 +57,35 @@ const CompetitionDetails = (props) => {
       .catch((error) => {
         console.log(error);
       });
+
+      if (competition?.status === 3) {
+        competitors.map((competitor) => {
+          if (competitor.lapIds.length < numberOfLaps) {
+            setIsDisqualified(true);
+          }
+          return false;
+        });
+      }
   };
 
-  const editCompetition = () => {
+  useEffect(() => {
+    getCompetition();
+  }, []);
+
+  const startCompetition = () => {
+    editCompetition(2);
+  };
+
+  const stopCompetition = () => {
+    editCompetition(3);
+    //checkIsDisqualified();
+  };
+
+  const editCompetition = (statusValue) => {
     axios
       .put("https://localhost:7173/api/Competition/" + competitionId, {
         id: competitionId,
-        status: status,
+        status: statusValue,
       })
       .then(() => getCompetition())
       .catch((error) => {
@@ -83,17 +105,28 @@ const CompetitionDetails = (props) => {
     setGroup(event.target.value);
   };
 
-  const startCompetition = () => {
-    setStatus(2);
-    editCompetition();
-  };
-
   const competitionId = state[1];
   const numberOfLaps = state[2];
   const competitorIds = state[3];
-  const competitionStatus = state[4];
 
-  console.log(competitionStatus);
+  // const checkIsDisqualified = () => {
+  //   if (competition?.status === 3) {
+  //     competitors.map((competitor) => {
+  //       if (competitor.lapIds.length < numberOfLaps) {
+  //         setIsDisqualified(true);
+  //       }
+  //       return false;
+  //     });
+  //   }
+  // };
+
+  // const checkIsDisqualified = () => {
+  //   if (competition?.status > 2 && competitors?.lapIds.length < numberOfLaps) {
+  //     setIsDisqualified(true);
+  //   }
+  // };
+
+  console.log("aktualny status", isDisqualified);
   return (
     <div
       style={{
@@ -113,14 +146,25 @@ const CompetitionDetails = (props) => {
         <Card className={styles.competitions}>
           <h1>{state[0]}</h1>
 
-          <Button type="button" onClick={startSigningUpHandler}>
-            SIGN UP
-          </Button>
-          <Button onClick={navigateTo}>ADD PENALTY POINTS</Button>
+          {competition?.status === 1 ? (
+            <Button type="button" onClick={startSigningUpHandler}>
+              SIGN UP
+            </Button>
+          ) : null}
+          {competition?.status === 2 ? (
+            <Button onClick={navigateTo}>ADD PENALTY POINTS</Button>
+          ) : null}
 
-          {competitionStatus < 2 ?<div className={styles.startStop}>
-            <Button onClick={startCompetition} >START</Button>
-          </div> : null }
+          {competition?.status < 2 ? (
+            <div className={styles.start}>
+              <Button onClick={startCompetition}>START</Button>
+            </div>
+          ) : null}
+          {competition?.status === 2 ? (
+            <div className={styles.stop}>
+              <Button onClick={stopCompetition}>STOP</Button>
+            </div>
+          ) : null}
           <div className={styles.competitions__groups}>
             <h4>Groups:</h4>
 
@@ -180,6 +224,7 @@ const CompetitionDetails = (props) => {
                 items={competitors}
                 laps={laps}
                 group="A"
+                isDisqualified={isDisqualified}
               />
               <CompetitorsTable
                 numberOfLaps={numberOfLaps}
@@ -187,6 +232,7 @@ const CompetitionDetails = (props) => {
                 items={competitors}
                 laps={laps}
                 group="B"
+                isDisqualified={isDisqualified}
               />
               <CompetitorsTable
                 numberOfLaps={numberOfLaps}
@@ -194,6 +240,7 @@ const CompetitionDetails = (props) => {
                 items={competitors}
                 laps={laps}
                 group="C"
+                isDisqualified={isDisqualified}
               />
             </>
           ) : (
@@ -203,6 +250,7 @@ const CompetitionDetails = (props) => {
               items={competitors}
               laps={laps}
               group={group}
+              isDisqualified={isDisqualified}
             />
           )}
         </Card>

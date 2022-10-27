@@ -10,7 +10,7 @@ const CompetitionsItem = (props) => {
 
   const navigateTo = () => {
     navigate(`details/${props.id}`, {
-      state: [props.name, props.id, props.laps, props.competitors, props.status],
+      state: [props.name, props.id, props.laps, props.competitors],
     });
     //props.onGetData();
   };
@@ -32,7 +32,7 @@ const CompetitionsItem = (props) => {
   }
 
   return (
-    <Card className={styles["competition-item"]}>
+    <Card className={`${styles["competition-item"]} ${props.status === 3 ? styles.finished : ''}`}>
       <div className={styles["competition-item__description"]}>
         <h2>{props.name}</h2>
         <h4>Laps: {props.laps}</h4>

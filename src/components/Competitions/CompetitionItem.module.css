@@ -7,6 +7,10 @@
   background-color: #a8cbff;
 }
 
+.competition-item.finished {
+  background-color: grey;
+}
+
 .competition-item__description {
   flex-direction: column;
   gap: 1rem;

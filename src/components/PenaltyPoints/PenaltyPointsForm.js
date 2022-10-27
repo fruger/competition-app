@@ -73,7 +73,7 @@ const PenaltyPointsForm = () => {
         <Toast
           onClose={() => setShow(false)}
           show={show}
-          delay={2000}
+          delay={1500}
           autohide
           bg="success"
         >

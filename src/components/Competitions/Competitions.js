@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import CompetitionForm from "../NewCompetition/CompetitionForm";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
-
 import CompetitionItem from "./CompetitionItem";
 import styles from "./Competitions.module.css";
 
@@ -51,8 +50,8 @@ const Competitions = (props) => {
           </Button>
         </div>
         <Card className={styles.competitions}>
-          {competition?.length === 0 && <h1>No competitions found.</h1>}
-          {competition?.map((competition) => (
+          {competition?.length < 1 && <h1>No competitions found.</h1>}
+          {competition?.reverse().map((competition) => (
             <CompetitionItem
               key={competition.id}
               id = {competition.id}

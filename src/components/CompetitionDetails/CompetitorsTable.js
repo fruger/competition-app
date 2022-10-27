@@ -2,8 +2,7 @@ import { Table } from "react-bootstrap";
 import "./CompetitorsTable.css";
 
 const CompetitorsTable = (props) => {
-  let tableNumber = 0;
-  let lapsNumber = 0;
+  let position = 0;
 
   const competitionIdsFilter = props.items?.filter((competitor) => {
     return competitor.competitionId === props.competitionId;
@@ -13,6 +12,12 @@ const CompetitorsTable = (props) => {
     return competitor.group === props.group;
   });
 
+  const sortCompetitors = (a, b) => {
+    return b.lapIds.length - a.lapIds.length
+  }
+
+
+  console.log("disq",props.isDisqualified)
   return (
     <div>
       <h6 className="competitorsTable">Group {props.group}</h6>
@@ -31,15 +36,16 @@ const CompetitorsTable = (props) => {
             <th>LAST NAME</th>
             <th>NUMBER</th>
             {Array.from({ length: props.numberOfLaps }).map((_, index) => (
-              <th key={index}>{(lapsNumber += 1)}</th>
+              <th key={index}>{index+1}</th>
             ))}
             <th>ALL PENALTY POINTS</th>
           </tr>
         </thead>
         <tbody>
-          {groupFilter?.map((competitor) => (
-            <tr key={competitor.id}>
-              <td>{(tableNumber += 1)}</td>
+          {groupFilter?.sort(sortCompetitors).map((competitor) => (
+            <tr key={competitor.id} className={`${props.isDisqualified ? "disqualified" : "" }`}>
+              {console.log("disq",props.isDisqualified)}
+              <td>{(position += 1)}</td>
               <td>{competitor.firstName}</td>
               <td>{competitor.lastName}</td>
               <td>{competitor.startingNumber}</td>
@@ -49,6 +55,7 @@ const CompetitorsTable = (props) => {
                     if (lap.competitorId === competitor.id) {
                       if (index + 1 === lap.number) {
                         competitor.penaltyPointsSum += lap.penaltyPoints;
+                        //penaltyPointsSum += lap.penaltyPoints
                         return lap.penaltyPoints;
                       }
                     }
@@ -56,7 +63,6 @@ const CompetitorsTable = (props) => {
                   })}
                 </td>
               ))}
-
               <td>{competitor.penaltyPointsSum}</td>
             </tr>
           ))}
