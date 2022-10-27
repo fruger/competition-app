@@ -14,7 +14,7 @@ const CompetitionDetails = () => {
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
   const [competition, setCompetition] = useState();
-  const [isDisqualified, setIsDisqualified] = useState(false);
+  // const [isDisqualified, setIsDisqualified] = useState(false);
   const [laps, setLaps] = useState();
   const [group, setGroup] = useState("All");
 
@@ -38,6 +38,16 @@ const CompetitionDetails = () => {
   }, []);
 
   useEffect(() => {
+    const identifier = setInterval(() => {
+      getCompetitors();
+    }, 1000);
+
+    return () => {
+      clearInterval(identifier);
+    };
+  }, []);
+
+  useEffect(() => {
     axios
       .get("https://localhost:7173/api/Lap")
       .then((res) => {
@@ -58,18 +68,28 @@ const CompetitionDetails = () => {
         console.log(error);
       });
 
-      if (competition?.status === 3) {
-        competitors.map((competitor) => {
-          if (competitor.lapIds.length < numberOfLaps) {
-            setIsDisqualified(true);
-          }
-          return false;
-        });
-      }
+    // if (competition?.status === 3) {
+    //   competitors.map((competitor) => {
+    //     if (competitor.lapIds.length < numberOfLaps) {
+    //       setIsDisqualified(true);
+    //     }
+    //     return false;
+    //   });
+    // }
   };
 
   useEffect(() => {
     getCompetition();
+  }, []);
+
+  useEffect(() => {
+    const identifier = setInterval(() => {
+      getCompetition();
+    }, 1000);
+
+    return () => {
+      clearInterval(identifier);
+    };
   }, []);
 
   const startCompetition = () => {
@@ -126,7 +146,7 @@ const CompetitionDetails = () => {
   //   }
   // };
 
-  console.log("aktualny status", isDisqualified);
+  //console.log("aktualny status", isDisqualified);
   return (
     <div
       style={{
@@ -223,24 +243,27 @@ const CompetitionDetails = () => {
                 competitionId={competitionId}
                 items={competitors}
                 laps={laps}
+                competitionStatus={competition?.status}
                 group="A"
-                isDisqualified={isDisqualified}
+                //isDisqualified={isDisqualified}
               />
               <CompetitorsTable
                 numberOfLaps={numberOfLaps}
                 competitionId={competitionId}
                 items={competitors}
                 laps={laps}
+                competitionStatus={competition?.status}
                 group="B"
-                isDisqualified={isDisqualified}
+                //isDisqualified={isDisqualified}
               />
               <CompetitorsTable
                 numberOfLaps={numberOfLaps}
                 competitionId={competitionId}
                 items={competitors}
                 laps={laps}
+                competitionStatus={competition?.status}
                 group="C"
-                isDisqualified={isDisqualified}
+                //isDisqualified={isDisqualified}
               />
             </>
           ) : (
@@ -249,8 +272,9 @@ const CompetitionDetails = () => {
               competitionId={competitionId}
               items={competitors}
               laps={laps}
+              competitionStatus={competition?.status}
               group={group}
-              isDisqualified={isDisqualified}
+              //isDisqualified={isDisqualified}
             />
           )}
         </Card>

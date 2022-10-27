@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "./CompetitorsTable.css";
 
 const CompetitorsTable = (props) => {
+  const [isDisqualified, setIsDisqualified] = useState(false);
   let position = 0;
 
   const competitionIdsFilter = props.items?.filter((competitor) => {
@@ -13,11 +15,22 @@ const CompetitorsTable = (props) => {
   });
 
   const sortCompetitors = (a, b) => {
-    return b.lapIds.length - a.lapIds.length
-  }
+    return b.lapIds.length - a.lapIds.length;
+  };
 
+  const checkIsDisqualified = () => {
+    if (props.competitionStatus === 3) {
+      competitionIdsFilter?.map((competitor) => {
+        if (competitor.lapIds.length < props.numberOfLaps) {
+          console.log(competitor.lapIds.length);
+          setIsDisqualified(true);
+        }
+        return setIsDisqualified(false);
+      });
+    }
+  };
 
-  console.log("disq",props.isDisqualified)
+  console.log("disq", props.isDisqualified);
   return (
     <div>
       <h6 className="competitorsTable">Group {props.group}</h6>
@@ -36,15 +49,17 @@ const CompetitorsTable = (props) => {
             <th>LAST NAME</th>
             <th>NUMBER</th>
             {Array.from({ length: props.numberOfLaps }).map((_, index) => (
-              <th key={index}>{index+1}</th>
+              <th key={index}>{index + 1}</th>
             ))}
             <th>ALL PENALTY POINTS</th>
           </tr>
         </thead>
         <tbody>
           {groupFilter?.sort(sortCompetitors).map((competitor) => (
-            <tr key={competitor.id} className={`${props.isDisqualified ? "disqualified" : "" }`}>
-              {console.log("disq",props.isDisqualified)}
+            <tr
+              key={competitor.id}
+              className={`${checkIsDisqualified} ${isDisqualified ? "disqualified" : ""}`}
+            >
               <td>{(position += 1)}</td>
               <td>{competitor.firstName}</td>
               <td>{competitor.lastName}</td>

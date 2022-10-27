@@ -25,6 +25,16 @@ const Competitions = (props) => {
     getCompetition();
   }, []);
 
+  useEffect(() => {
+    const identifier = setInterval(() => {
+      getCompetition();
+    }, 1000);
+
+    return () => {
+      clearInterval(identifier);
+    };
+  }, []);
+
   // const getData = () => {
   //   props.onGetCompetitionsData(competition);
   // };
@@ -54,7 +64,7 @@ const Competitions = (props) => {
           {competition?.reverse().map((competition) => (
             <CompetitionItem
               key={competition.id}
-              id = {competition.id}
+              id={competition.id}
               name={competition.name}
               laps={competition.laps}
               competitors={competition.competitorIds.length}
