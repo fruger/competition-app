@@ -16,13 +16,14 @@
   display: flex;
   position: fixed;
   flex-direction: column;
-  font-size: 13px;
+  font-size: 12px;    
 }
 
 .back-to-list button {
   background-color: #1f1f1f;
   color: #a8cbff;
   margin-bottom: 15px;
+  padding: 0.5rem;
 }
 
 .back-to-list button:hover {
@@ -56,13 +57,13 @@
 
 .buttonGroup__label {
   padding: 8px 25px;
-  font-size: 15px;
+  font-size: 14px;
   font-family: sans-serif;
   color: white;
   background-color: #1f1f1f;
   cursor: pointer;
   transition: 0.1s;
-  width: 25%;
+  width: 20%;
 }
 
 .buttonGroup__label:not(:last-of-type) {

@@ -1,16 +1,10 @@
-import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "./CompetitorsTable.css";
 
 const CompetitorsTable = (props) => {
-  const [isDisqualified, setIsDisqualified] = useState(false);
   let position = 0;
 
-  const competitionIdsFilter = props.items?.filter((competitor) => {
-    return competitor.competitionId === props.competitionId;
-  });
-
-  const groupFilter = competitionIdsFilter?.filter((competitor) => {
+  const groupFilter = props.items?.filter((competitor) => {
     return competitor.group === props.group;
   });
 
@@ -18,19 +12,6 @@ const CompetitorsTable = (props) => {
     return b.lapIds.length - a.lapIds.length;
   };
 
-  const checkIsDisqualified = () => {
-    if (props.competitionStatus === 3) {
-      competitionIdsFilter?.map((competitor) => {
-        if (competitor.lapIds.length < props.numberOfLaps) {
-          console.log(competitor.lapIds.length);
-          setIsDisqualified(true);
-        }
-        return setIsDisqualified(false);
-      });
-    }
-  };
-
-  console.log("disq", props.isDisqualified);
   return (
     <div>
       <h6 className="competitorsTable">Group {props.group}</h6>
@@ -58,7 +39,9 @@ const CompetitorsTable = (props) => {
           {groupFilter?.sort(sortCompetitors).map((competitor) => (
             <tr
               key={competitor.id}
-              className={`${checkIsDisqualified} ${isDisqualified ? "disqualified" : ""}`}
+              className={`${
+                competitor.isDisqualified === true ? "disqualified" : ""
+              }`}
             >
               <td>{(position += 1)}</td>
               <td>{competitor.firstName}</td>
@@ -69,7 +52,7 @@ const CompetitorsTable = (props) => {
                   {props.laps?.map((lap) => {
                     if (lap.competitorId === competitor.id) {
                       if (index + 1 === lap.number) {
-                        competitor.penaltyPointsSum += lap.penaltyPoints;
+                        
                         //penaltyPointsSum += lap.penaltyPoints
                         return lap.penaltyPoints;
                       }

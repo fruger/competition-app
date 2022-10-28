@@ -38,13 +38,14 @@
 
 .back-to-list {
   position: fixed;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .back-to-list button {
   background-color: #1f1f1f;
   color: #a8cbff;
   position: fixed;
+  padding: 0.5rem;
 }
 
 .back-to-list button:hover {

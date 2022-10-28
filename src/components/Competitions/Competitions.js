@@ -6,7 +6,7 @@ import Card from "../UI/Card";
 import CompetitionItem from "./CompetitionItem";
 import styles from "./Competitions.module.css";
 
-const Competitions = (props) => {
+const Competitions = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [competition, setCompetition] = useState();
 
@@ -23,16 +23,6 @@ const Competitions = (props) => {
 
   useEffect(() => {
     getCompetition();
-  }, []);
-
-  useEffect(() => {
-    const identifier = setInterval(() => {
-      getCompetition();
-    }, 1000);
-
-    return () => {
-      clearInterval(identifier);
-    };
   }, []);
 
   // const getData = () => {

@@ -9,7 +9,10 @@
 }
 
 .disqualified {
-  --bs-table-accent-bg: grey;
-  --bs-table-striped-bg: grey;
-  --bs-table-hover-bg: grey; 
+  --bs-table-accent-bg: #686868;
+  --bs-table-striped-bg: #686868;
+  --bs-table-hover-bg: #686868;
+  color: #888888;
+  --bs-table-striped-color: #888888;
+  --bs-table-hover-color: #888888;
 }

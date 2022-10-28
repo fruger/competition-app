@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Toast } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ImArrowLeft } from "react-icons/im";
@@ -11,56 +11,115 @@ const PenaltyPointsForm = () => {
   const [enteredLapNumber, setEnteredLapNumber] = useState(1);
   const [enteredPenaltyPoints, setEnteredPenaltyPoints] = useState(0);
   const [selectedCompetitorId, setSelectedCompetitorId] = useState();
+  const [competitors, setCompetitors] = useState();
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const { state } = useLocation();
   const navigate = useNavigate();
 
   const numberOfLaps = state[0];
-  const competitors = state[1];
+  //const competitionIdsFilter = state[1];
   const competitionId = state[2];
+
+  let newCompetitor;
+  let newPenaltyPointsSum = 0;
+
+  const getCompetitors = () => {
+    console.log(selectedCompetitorId);
+
+    axios
+      .get("https://localhost:7173/api/Competitor")
+      .then((res) => {
+        setCompetitors(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getCompetitors();
+  }, []);
 
   const competitionIdsFilter = competitors?.filter((competitor) => {
     return competitor.competitionId === competitionId;
   });
 
-  const currentCompetitor = (event) => {
-    if (
-      parseInt(event.target.value) < numberOfLaps &&
-      event.target.id !== undefined
-    ) {
+  const currentCompetitorChangeHandler = (event) => {
+    if (event.target.id !== undefined) {
       setValidated(false);
     }
-    
-    setEnteredLapNumber(parseInt(event.target.value) + 1);
     setSelectedCompetitorId(event.target.id);
   };
 
-  console.log(enteredLapNumber)
+  const penaltyPointsChangeHandler = (event) => {
+    if (event.target.value !== undefined) {
+      setValidated(false);
+    }
+    setEnteredPenaltyPoints(event.target.value);
+  };
+
+  const lapNumberChangeHandler = (event) => {
+    if (event.target.value !== undefined) {
+      setValidated(false);
+    }
+    setEnteredLapNumber(event.target.value);
+  };
+
+  // const checkEnteredNumber = () => {
+  //   if (enteredLapNumber) {
+  //   }
+  // };
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (
-      enteredLapNumber > numberOfLaps ||
-      selectedCompetitorId === undefined
-    ) {
-      setValidated(true);
-      return;
-    }
+    newCompetitor = competitors.filter(
+      (competitor) => competitor.id === selectedCompetitorId
+    );
 
-    axios
-      .post("https://localhost:7173/api/Lap", {
-        number: enteredLapNumber,
-        penaltyPoints: enteredPenaltyPoints,
-        competitorId: selectedCompetitorId,
-      })
-      .then(() => setShow(true))
-      .catch((error) => {
-        console.log(error);
-      });
+    newCompetitor.map((competitor) => {
+      if (
+        competitor.lapIds.length >= numberOfLaps ||
+        selectedCompetitorId === undefined
+      ) {
+        setValidated(true);
+        return;
+      } else if (enteredLapNumber <= competitor.lapIds.length) {
+        setValidated(true);
+        return;
+      } else {
+        axios
+          .post("https://localhost:7173/api/Lap", {
+            number: enteredLapNumber,
+            penaltyPoints: enteredPenaltyPoints,
+            competitorId: selectedCompetitorId,
+          })
+          .then(() => {
+            getCompetitors();
+            setShow(true);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+      newPenaltyPointsSum = competitor.penaltyPointsSum;
+      newPenaltyPointsSum += parseInt(enteredPenaltyPoints);
 
-    setEnteredLapNumber(enteredLapNumber + 1);
+      axios
+        .put(
+          "https://localhost:7173/api/Competitor/penaltysum/" +
+            selectedCompetitorId,
+          {
+            id: selectedCompetitorId,
+            penaltyPointsSum: newPenaltyPointsSum,
+          }
+        )
+        .then()
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   };
 
   return (
@@ -83,6 +142,7 @@ const PenaltyPointsForm = () => {
           <Toast.Body>Added penalty points</Toast.Body>
         </Toast>
       </Col>
+
       <div className={styles.competitions__background}>
         <div className={styles["back-to-list"]}>
           <CustomButton onClick={() => navigate(-1)}>
@@ -96,18 +156,30 @@ const PenaltyPointsForm = () => {
             COMPETITIONS LIST
           </CustomButton>
         </div>
+
         <Card className={styles.competitions}>
           <div className={styles.form}>
             <Form>
+              <Form.Group>
+                <Form.Label>LAP NUMBER</Form.Label>
+                <Form.Select
+                  isInvalid={validated}
+                  required
+                  value={enteredLapNumber}
+                  onChange={lapNumberChangeHandler}
+                >
+                  {Array.from({ length: numberOfLaps }).map((_, index) => (
+                    <option key={index}>{index + 1}</option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
               <Form.Group>
                 <Form.Label>PENALTY POINTS</Form.Label>
                 <Form.Select
                   isInvalid={validated}
                   required
                   value={enteredPenaltyPoints}
-                  onChange={(event) =>
-                    setEnteredPenaltyPoints(event.target.value)
-                  }
+                  onChange={penaltyPointsChangeHandler}
                 >
                   <option>0</option>
                   <option>1</option>
@@ -127,15 +199,16 @@ const PenaltyPointsForm = () => {
               </Button>
             </Form>
           </div>
+
           {competitionIdsFilter?.map((competitor) => (
-            <div className={styles.buttonGroup}>
+            <div key={competitor.id} className={styles.buttonGroup}>
               <input
                 className={styles.buttonGroup__input}
                 type="radio"
-                value={competitor.lapIds.length}
+                value={competitor}
                 name="myButton"
                 id={competitor.id}
-                onClick={currentCompetitor}
+                onClick={currentCompetitorChangeHandler}
               />
 
               <label
@@ -161,6 +234,12 @@ const PenaltyPointsForm = () => {
                 htmlFor={competitor.id}
               >
                 Group: {competitor.group}
+              </label>
+              <label
+                className={styles.buttonGroup__label}
+                htmlFor={competitor.id}
+              >
+                Penalty Points: {competitor.penaltyPointsSum}
               </label>
             </div>
           ))}
