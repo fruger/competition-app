@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Form, Toast } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ImArrowLeft } from "react-icons/im";
 import CustomButton from "../UI/Button";
 import Card from "../UI/Card";
 import styles from "./PenaltyPointsForm.module.css";
 import axios from "axios";
+import CustomToast from "../UI/CustomToast";
 
 const PenaltyPointsForm = () => {
   const [enteredLapNumber, setEnteredLapNumber] = useState(1);
@@ -18,15 +19,12 @@ const PenaltyPointsForm = () => {
   const navigate = useNavigate();
 
   const numberOfLaps = state[0];
-  //const competitionIdsFilter = state[1];
-  const competitionId = state[2];
+  const competitionId = state[1];
 
   let newCompetitor;
   let newPenaltyPointsSum = 0;
 
   const getCompetitors = () => {
-    console.log(selectedCompetitorId);
-
     axios
       .get("https://localhost:7173/api/Competitor")
       .then((res) => {
@@ -74,19 +72,40 @@ const PenaltyPointsForm = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
+    if (selectedCompetitorId === undefined) {
+      console.log("test");
+      setValidated(true);
+      setShow({
+        bg: "danger",
+        delay: "3000",
+        title: "Failure",
+        message: "Select a competitor",
+      });
+      return;
+    }
+
     newCompetitor = competitors.filter(
       (competitor) => competitor.id === selectedCompetitorId
     );
 
     newCompetitor.map((competitor) => {
-      if (
-        competitor.lapIds.length >= numberOfLaps ||
-        selectedCompetitorId === undefined
-      ) {
+      if (competitor.lapIds.length >= numberOfLaps) {
         setValidated(true);
+        setShow({
+          bg: "danger",
+          delay: "3000",
+          title: "Failure",
+          message: "Cannot add any more penalty points",
+        });
         return;
       } else if (enteredLapNumber <= competitor.lapIds.length) {
         setValidated(true);
+        setShow({
+          bg: "danger",
+          delay: "3000",
+          title: "Failure",
+          message: "Select correct lap (Points has already been added)",
+        });
         return;
       } else {
         axios
@@ -97,7 +116,12 @@ const PenaltyPointsForm = () => {
           })
           .then(() => {
             getCompetitors();
-            setShow(true);
+            setShow({
+              bg: "success",
+              delay: "1500",
+              title: "Success",
+              message: "Added penalty points",
+            });
           })
           .catch((error) => {
             console.log(error);
@@ -128,20 +152,15 @@ const PenaltyPointsForm = () => {
         backgroundColor: "#3f3f3f",
       }}
     >
-      <Col xs={5} className={styles.toast}>
-        <Toast
-          onClose={() => setShow(false)}
-          show={show}
-          delay={1500}
-          autohide
-          bg="success"
-        >
-          <Toast.Header>
-            <strong className="me-auto">Success</strong>
-          </Toast.Header>
-          <Toast.Body>Added penalty points</Toast.Body>
-        </Toast>
-      </Col>
+      <CustomToast
+        className={styles.toast}
+        show={show}
+        onClose={() => setShow(false)}
+        delay={show.delay}
+        bg={show.bg}
+        title={show.title}
+        message={show.message}
+      />
 
       <div className={styles.competitions__background}>
         <div className={styles["back-to-list"]}>

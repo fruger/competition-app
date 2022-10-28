@@ -14,7 +14,6 @@ const CompetitionDetails = () => {
   const [isSigningUp, setIsSigningUp] = useState();
   const [competitors, setCompetitors] = useState();
   const [competition, setCompetition] = useState();
-  //const [isFinished, setIsFinished] = useState(false);
   const [laps, setLaps] = useState();
   const [group, setGroup] = useState("All");
 
@@ -25,7 +24,7 @@ const CompetitionDetails = () => {
 
   const navigateTo = () => {
     navigate("penalty", {
-      state: [numberOfLaps, competitionIdsFilter, competitionId],
+      state: [numberOfLaps, competitionId],
     });
   };
 

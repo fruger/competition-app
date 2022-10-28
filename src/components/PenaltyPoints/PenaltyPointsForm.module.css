@@ -87,6 +87,6 @@
 .toast {
   position: absolute;
   z-index: 6;
-  top: 5%;
-  right: -15%;
+  top: 2%;
+  right: 1%;
 }

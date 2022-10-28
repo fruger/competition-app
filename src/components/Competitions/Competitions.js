@@ -25,10 +25,6 @@ const Competitions = () => {
     getCompetition();
   }, []);
 
-  // const getData = () => {
-  //   props.onGetCompetitionsData(competition);
-  // };
-
   const startCreatingHandler = () => {
     setIsCreating(true);
   };
