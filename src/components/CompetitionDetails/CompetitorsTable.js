@@ -52,8 +52,6 @@ const CompetitorsTable = (props) => {
                   {props.laps?.map((lap) => {
                     if (lap.competitorId === competitor.id) {
                       if (index + 1 === lap.number) {
-                        
-                        //penaltyPointsSum += lap.penaltyPoints
                         return lap.penaltyPoints;
                       }
                     }

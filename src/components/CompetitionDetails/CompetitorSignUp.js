@@ -1,13 +1,15 @@
-import { Button, Form, Modal } from "react-bootstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const CompetitorSignUp = (props) => {
   const [enteredFirstName, setEnteredFirstName] = useState("");
   const [enteredLastName, setEnteredLastName] = useState("");
   const [enteredGroup, setEnteredGroup] = useState("A");
-  const [enteredStartingNumber, setEnteredStartingNumber] = useState(props.competitors + 1);
+  const [enteredStartingNumber, setEnteredStartingNumber] = useState(
+    props.competitors + 1
+  );
   const [validated, setValidated] = useState(false);
 
   const firstNameChangeHandler = (event) => {

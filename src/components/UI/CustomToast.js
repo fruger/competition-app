@@ -4,7 +4,7 @@ const CustomToast = (props) => {
   return (
     <Col xs={5}>
       <Toast
-      className={props.className}
+        className={props.className}
         onClose={props.onClose}
         show={props.show}
         delay={props.delay}

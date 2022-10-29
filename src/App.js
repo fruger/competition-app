@@ -1,7 +1,6 @@
-import CompetitionDetails from "./components/CompetitionDetails/CompetitionDetails";
-import Competitions from "./components/Competitions/Competitions";
 import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import Competitions from "./components/Competitions/Competitions";
+import CompetitionDetails from "./components/CompetitionDetails/CompetitionDetails";
 import PenaltyPointsForm from "./components/PenaltyPoints/PenaltyPointsForm";
 
 const App = () => {

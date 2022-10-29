@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import styles from "./CompetitionItem.module.css";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
+import styles from "./CompetitionItem.module.css";
 
 const CompetitionsItem = (props) => {
   const navigate = useNavigate();
@@ -10,9 +10,14 @@ const CompetitionsItem = (props) => {
 
   const navigateTo = () => {
     navigate(`details/${props.id}`, {
-      state: [props.name, props.id, props.laps, props.competitors, props.status],
+      state: [
+        props.name,
+        props.id,
+        props.laps,
+        props.competitors,
+        props.status,
+      ],
     });
-    //props.onGetData();
   };
 
   switch (props.status) {
@@ -28,11 +33,15 @@ const CompetitionsItem = (props) => {
       status = "Finished";
       break;
     default:
-      status = "Not Started"
+      status = "Not Started";
   }
 
   return (
-    <Card className={`${styles["competition-item"]} ${props.status === 3 ? styles.finished : ''}`}>
+    <Card
+      className={`${styles["competition-item"]} ${
+        props.status === 3 ? styles.finished : ""
+      }`}
+    >
       <div className={styles["competition-item__description"]}>
         <h2>{props.name}</h2>
         <h4>Laps: {props.laps}</h4>

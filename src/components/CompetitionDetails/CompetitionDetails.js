@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ImArrowLeft } from "react-icons/im";
 import axios from "axios";
-import styles from "./CompetitionDetails.module.css";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
 import CompetitorSignUp from "./CompetitorSignUp";
 import CompetitorsTable from "./CompetitorsTable";
+import styles from "./CompetitionDetails.module.css";
 
 const CompetitionDetails = () => {
   const navigate = useNavigate();
@@ -245,7 +245,6 @@ const CompetitionDetails = () => {
                 laps={laps}
                 competitionStatus={competitionStatus}
                 group="A"
-                //isDisqualified={isDisqualified}
               />
               <CompetitorsTable
                 numberOfLaps={numberOfLaps}
@@ -254,7 +253,6 @@ const CompetitionDetails = () => {
                 laps={laps}
                 competitionStatus={competitionStatus}
                 group="B"
-                //isDisqualified={isDisqualified}
               />
               <CompetitorsTable
                 numberOfLaps={numberOfLaps}
@@ -263,7 +261,6 @@ const CompetitionDetails = () => {
                 laps={laps}
                 competitionStatus={competitionStatus}
                 group="C"
-                //isDisqualified={isDisqualified}
               />
             </>
           ) : (
@@ -274,7 +271,6 @@ const CompetitionDetails = () => {
               laps={laps}
               competitionStatus={competitionStatus}
               group={group}
-              //isDisqualified={isDisqualified}
             />
           )}
         </Card>

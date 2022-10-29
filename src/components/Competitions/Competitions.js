@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import CompetitionItem from "./CompetitionItem";
 import CompetitionForm from "../NewCompetition/CompetitionForm";
 import Button from "../UI/Button";
 import Card from "../UI/Card";
-import CompetitionItem from "./CompetitionItem";
 import styles from "./Competitions.module.css";
 
 const Competitions = () => {
@@ -55,7 +55,6 @@ const Competitions = () => {
               laps={competition.laps}
               competitors={competition.competitorIds.length}
               status={competition.status}
-              //onGetData={getData}
             />
           ))}
         </Card>

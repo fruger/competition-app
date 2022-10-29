@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ImArrowLeft } from "react-icons/im";
+import axios from "axios";
 import CustomButton from "../UI/Button";
 import Card from "../UI/Card";
-import styles from "./PenaltyPointsForm.module.css";
-import axios from "axios";
 import CustomToast from "../UI/CustomToast";
+import styles from "./PenaltyPointsForm.module.css";
 
 const PenaltyPointsForm = () => {
   const [enteredLapNumber, setEnteredLapNumber] = useState(1);
@@ -63,11 +63,6 @@ const PenaltyPointsForm = () => {
     }
     setEnteredLapNumber(event.target.value);
   };
-
-  // const checkEnteredNumber = () => {
-  //   if (enteredLapNumber) {
-  //   }
-  // };
 
   const submitHandler = (event) => {
     event.preventDefault();
