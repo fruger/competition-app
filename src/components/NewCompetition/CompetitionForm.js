@@ -43,6 +43,9 @@ const AddForm = (props) => {
       .catch((error) => {
         console.log(error);
       });
+
+      setEnteredName("");
+      setEnteredLaps("");
     props.onCancel();
   };
 

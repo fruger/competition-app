@@ -50,6 +50,8 @@ const CompetitorSignUp = (props) => {
       });
 
     setEnteredStartingNumber(enteredStartingNumber + 1);
+    setEnteredFirstName("");
+    setEnteredLastName("");
     props.onCancel();
   };
 

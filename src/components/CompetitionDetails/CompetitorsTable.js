@@ -9,6 +9,9 @@ const CompetitorsTable = (props) => {
   });
 
   const sortCompetitors = (a, b) => {
+    if ((b.lapIds.length = a.lapIds.length)) {
+      return a.penaltyPointsSum - b.penaltyPointsSum;
+    }
     return b.lapIds.length - a.lapIds.length;
   };
 

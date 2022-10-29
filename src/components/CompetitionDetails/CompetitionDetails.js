@@ -53,7 +53,7 @@ const CompetitionDetails = () => {
     };
   }, []);
 
-  useEffect(() => {
+  const getLaps = () => {
     axios
       .get("https://localhost:7173/api/Lap")
       .then((res) => {
@@ -62,6 +62,20 @@ const CompetitionDetails = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  useEffect(() => {
+    getLaps();
+  }, []);
+
+  useEffect(() => {
+    const identifier = setInterval(() => {
+      getLaps();
+    }, 2000);
+
+    return () => {
+      clearInterval(identifier);
+    };
   }, []);
 
   const getCompetition = () => {
@@ -77,16 +91,6 @@ const CompetitionDetails = () => {
 
   useEffect(() => {
     getCompetition();
-  }, []);
-
-  useEffect(() => {
-    const identifier = setInterval(() => {
-      getCompetition();
-    }, 2000);
-
-    return () => {
-      clearInterval(identifier);
-    };
   }, []);
 
   const competitionIdsFilter = competitors?.filter((competitor) => {

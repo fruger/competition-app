@@ -47,6 +47,7 @@ const PenaltyPointsForm = () => {
     if (event.target.id !== undefined) {
       setValidated(false);
     }
+
     setSelectedCompetitorId(event.target.id);
   };
 
@@ -68,11 +69,10 @@ const PenaltyPointsForm = () => {
     event.preventDefault();
 
     if (selectedCompetitorId === undefined) {
-      console.log("test");
       setValidated(true);
       setShow({
         bg: "danger",
-        delay: "3000",
+        delay: "4000",
         title: "Failure",
         message: "Select a competitor",
       });
@@ -88,7 +88,7 @@ const PenaltyPointsForm = () => {
         setValidated(true);
         setShow({
           bg: "danger",
-          delay: "3000",
+          delay: "4000",
           title: "Failure",
           message: "Cannot add any more penalty points",
         });
@@ -97,9 +97,18 @@ const PenaltyPointsForm = () => {
         setValidated(true);
         setShow({
           bg: "danger",
-          delay: "3000",
+          delay: "4000",
           title: "Failure",
           message: "Select correct lap (Points has already been added)",
+        });
+        return;
+      } else if (parseInt(enteredLapNumber) !== competitor.lapIds.length + 1) {
+        setValidated(true);
+        setShow({
+          bg: "danger",
+          delay: "4000",
+          title: "Failure",
+          message: "Select correct lap (Previous lap was not rated)",
         });
         return;
       } else {
@@ -253,7 +262,13 @@ const PenaltyPointsForm = () => {
                 className={styles.buttonGroup__label}
                 htmlFor={competitor.id}
               >
-                Penalty Points: {competitor.penaltyPointsSum}
+                Laps: {competitor.lapIds.length}
+              </label>
+              <label
+                className={styles.buttonGroup__label}
+                htmlFor={competitor.id}
+              >
+                Pen. pts sum: {competitor.penaltyPointsSum}
               </label>
             </div>
           ))}
