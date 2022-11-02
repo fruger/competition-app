@@ -99,7 +99,7 @@ const PenaltyPointsForm = () => {
           bg: "danger",
           delay: "4000",
           title: "Failure",
-          message: "Select correct lap (Points has already been added)",
+          message: "Select correct lap (Points have already been added)",
         });
         return;
       } else if (parseInt(enteredLapNumber) !== competitor.lapIds.length + 1) {

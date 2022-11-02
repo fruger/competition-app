@@ -9,10 +9,11 @@ const CompetitorsTable = (props) => {
   });
 
   const sortCompetitors = (a, b) => {
-    if ((b.lapIds.length = a.lapIds.length)) {
+    if (a.lapIds.length !== b.lapIds.length) {
+      return b.lapIds.length - a.lapIds.length;
+    } else {
       return a.penaltyPointsSum - b.penaltyPointsSum;
     }
-    return b.lapIds.length - a.lapIds.length;
   };
 
   return (
