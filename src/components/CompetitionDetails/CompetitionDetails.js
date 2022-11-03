@@ -179,7 +179,7 @@ const CompetitionDetails = () => {
             <Button onClick={navigateTo}>ADD PENALTY POINTS</Button>
           ) : null}
 
-          {competition?.status < 2 ? (
+          {competition?.status === 1 ? (
             <div className={styles.start}>
               <Button onClick={startCompetition}>START</Button>
             </div>
